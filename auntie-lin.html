@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auntie Lin | Lighthouse Academy</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-1: #9D927F; /* Lightest taupe */
+      --color-2: #271C16; /* Darkest brown */
+      --color-3: #B0A289; /* Medium taupe */
+      --color-4: #7F7260; /* Medium brown */
+      --color-5: #6A6054; /* Dark taupe */
+      --light-text: #f5f3e7; /* Off-white parchment */
+      --dark-text: #271C16; /* Same as darkest brown */
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'IM Fell English', Georgia, serif;
+      background-color: var(--color-2); /* Darkest brown */
+      color: var(--light-text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Background with semi-opaque overlay */
+    body::before {
+      content: "";
+      background-image: url('https://raw.githubusercontent.com/uqsmitc6/The-Lighthouse/refs/heads/main/stormyseas.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
+      z-index: -2;
+    }
+    
+    /* Semi-opaque darkest brown overlay */
+    body::after {
+      content: "";
+      background-color: var(--color-2); /* #271C16 - Darkest brown */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+      z-index: -1;
+    }
+    
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1400px;
+      width: 100%;
+      position: relative;
+    }
+    
+    .header {
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 4px;
+      background: linear-gradient(to right, transparent, var(--color-3), transparent);
+    }
+    
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 4px;
+      background: linear-gradient(to right, transparent, var(--color-3), transparent);
+    }
+    
+    .header h1 {
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 48px;
+      color: var(--light-text);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+      background-color: rgba(39, 28, 22, 0.5);
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      display: inline-block;
+    }
+    
+    .header p {
+      color: var(--light-text);
+      font-size: 20px;
+      font-style: italic;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      background-color: rgba(39, 28, 22, 0.5);
+      padding: 8px 15px;
+      border-radius: var(--border-radius);
+      display: inline-block;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    
+    /* Auntie Lin Image Fallback */
+    .auntielin-image-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 8px solid var(--color-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: var(--color-3);
+      overflow: hidden;
+    }
+    
+    .auntielin-text {
+      position: absolute;
+      font-size: 48px;
+      font-weight: 700;
+      font-family: 'IM Fell English', Georgia, serif;
+      color: var(--light-text);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    
+    /* Auntie Lin Image and Login Container */
+    .auntielin-container {
+      position: relative;
+      width: 700px;
+      height: 700px;
+      margin: 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(157, 146, 127, 0.4);
+      transition: transform 0.3s ease;
+    }
+    
+    .auntielin-container:active {
+      transform: scale(0.98);
+    }
+    
+    .auntielin-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+      border-radius: 50%;
+      border: 8px solid var(--color-1);
+    }
+    
+    .login-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(39, 28, 22, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: var(--transition);
+      border-radius: 50%;
+      padding: 40px;
+      color: var(--light-text);
+      z-index: 10;
+    }
+    
+    .auntielin-container:hover .auntielin-image {
+      filter: blur(3px) brightness(0.7);
+    }
+    
+    .auntielin-container:hover .login-overlay {
+      opacity: 1;
+    }
+    
+    /* Pulsing animation for the avatar container */
+    .pulse-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      border: 3px solid rgba(157, 146, 127, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(1.05);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .login-form {
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      background-color: rgba(39, 28, 22, 0.8);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      border: 2px solid var(--color-3);
+      /* Add torn paper effect */
+      clip-path: polygon(
+        0% 5%, 5% 0%, 95% 0%, 100% 5%,
+        100% 95%, 95% 100%, 5% 100%, 0% 95%
+      );
+    }
+    
+    .form-title {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: var(--color-3);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      font-family: 'IM Fell English', Georgia, serif;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid var(--color-1);
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--light-text);
+      font-size: 18px;
+      font-family: 'IM Fell English', Georgia, serif;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-3);
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 15px 0;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--color-3);
+      color: var(--color-2);
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'IM Fell English', Georgia, serif;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn:hover {
+      background-color: var(--color-1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .id-hint {
+      margin-top: 15px;
+      font-size: 14px;
+      color: var(--light-text);
+      font-family: 'IM Fell English', Georgia, serif;
+    }
+    
+    /* Error and loading states */
+    #error-msg {
+      color: #ff6b6b;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      color: var(--light-text);
+    }
+    
+    .loading-spinner {
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      border-top: 3px solid var(--light-text);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Verification confirmation */
+    .verification-container {
+      max-width: 450px;
+      width: 90%;
+      background-color: rgba(39, 28, 22, 0.85);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      border: 2px solid var(--color-1);
+      animation: fadeIn 0.5s ease;
+      /* Add torn paper effect */
+      clip-path: polygon(
+        0% 5%, 5% 0%, 95% 0%, 100% 5%,
+        100% 95%, 95% 100%, 5% 100%, 0% 95%
+      );
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #success-msg {
+      color: var(--light-text); /* Changed from #4caf50 (green) to parchment color */
+      font-size: 22px;
+      margin-bottom: 25px;
+      font-family: 'IM Fell English', Georgia, serif;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn-secondary {
+      background-color: var(--color-5);
+      color: var(--light-text);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--color-4);
+    }
+    
+    .btn-danger {
+      background-color: var(--color-5); /* Using theme color instead of brown */
+      color: var(--light-text);
+      border: 1px solid var(--color-1);
+    }
+    
+    .btn-danger:hover {
+      background-color: var(--color-4);
+    }
+    
+    /* Chat interface */
+    .chat-interface {
+      width: 100%;
+      max-width: 900px;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .student-info {
+      background-color: rgba(39, 28, 22, 0.9);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border-left: 4px solid var(--color-3);
+    }
+    
+    .student-name {
+      font-weight: 600;
+      color: var(--light-text);
+      font-family: 'IM Fell English', Georgia, serif;
+    }
+    
+    .student-id {
+      font-family: monospace;
+      background-color: var(--color-2);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--color-1);
+    }
+    
+    #chat-container {
+      width: 100%;
+      height: 600px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+      background-color: rgba(39, 28, 22, 0.9);
+      border: 2px solid var(--color-1);
+    }
+    
+    .disclaimer {
+      max-width: 800px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 15px;
+      color: var(--light-text);
+      line-height: 1.6;
+      padding: 0 20px;
+      /* Add a paper texture background */
+      background-color: rgba(106, 96, 84, 0.7);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      position: relative;
+      /* Add a subtle torn edge effect */
+      clip-path: polygon(
+        0% 5%, 2% 0%, 98% 0%, 100% 5%,
+        100% 95%, 98% 100%, 2% 100%, 0% 95%
+      );
+    }
+    
+    /* Add decorative corners to disclaimer */
+    .disclaimer::before,
+    .disclaimer::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%2050%22%3E%0A%20%20%3Cpath%20d%3D%22M0%200%20L0%2040%20C0%2020%2C%2020%200%2C%2040%200%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23B0A289%22%20stroke-width%3D%221.5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%205%20L0%2030%20C0%2015%2C%2015%200%2C%2030%200%20Z%22%20fill%3D%22none%22%20stroke%3D%22%239D927F%22%20stroke-width%3D%221%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%20fill%3D%22%23B0A289%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.5%22%20fill%3D%22%23B0A289%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%221.5%22%20fill%3D%22%23B0A289%22%20%2F%3E%0A%3C%2Fsvg%3E');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+    }
+    
+    .disclaimer::before {
+      top: 5px;
+      left: 5px;
+    }
+    
+    .disclaimer::after {
+      bottom: 5px;
+      right: 5px;
+      transform: rotate(180deg);
+    }
+    
+    /* Alternative login button for mobile */
+    .mobile-login-button {
+      display: none;
+      margin-top: 20px;
+      width: 250px;
+      padding: 15px 20px;
+      background-color: var(--color-3);
+      color: var(--color-2);
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'IM Fell English', Georgia, serif;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      animation: pulse-button 2s infinite;
+    }
+    
+    @keyframes pulse-button {
+      0% {
+        box-shadow: 0 0 0 0 rgba(176, 162, 137, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(176, 162, 137, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(176, 162, 137, 0);
+      }
+    }
+    
+    /* Mobile optimization */
+    @media (max-width: 768px) {
+      .auntielin-container {
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
+        position: relative;
+      }
+      
+      .auntielin-text {
+        font-size: 36px;
+      }
+      
+      /* Show mobile login button instead of tap instruction */
+      .mobile-login-button {
+        display: block;
+      }
+      
+      /* Hide the tap instruction since we're using a button */
+      .mobile-tap-instruction {
+        display: none;
+      }
+      
+      /* Always show login overlay when mobile-form-visible class is applied */
+      .mobile-form-visible .login-overlay {
+        opacity: 1;
+        background-color: rgba(39, 28, 22, 0.9);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        border-radius: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .mobile-form-visible .auntielin-image {
+        filter: blur(3px) brightness(0.7);
+      }
+      
+      /* Add a close button for the mobile login overlay */
+      .close-overlay {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(39, 28, 22, 0.9);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--light-text);
+        font-size: 24px;
+        cursor: pointer;
+        border: 1px solid var(--color-1);
+      }
+      
+      .header h1 {
+        font-size: 32px;
+      }
+      
+      .header p {
+        font-size: 16px;
+      }
+      
+      .form-title {
+        font-size: 22px;
+      }
+      
+      .form-input, .btn {
+        padding: 12px;
+        font-size: 16px;
+      }
+      
+      .login-form {
+        width: 90%;
+        padding: 20px;
+        max-width: 320px;
+      }
+      
+      #chat-container {
+        height: 500px;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .verification-container {
+        max-width: 320px;
+      }
+    }
+    
+    /* Tablet optimization */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .auntielin-container {
+        width: 500px;
+        height: 500px;
+      }
+    }
+    
+    /* Touch device specific styles */
+    @media (hover: none) {
+      .auntielin-container:hover .login-overlay {
+        opacity: 0; /* Disable hover effect on touch devices */
+      }
+      
+      .auntielin-container:hover .auntielin-image {
+        filter: none; /* Disable hover effect on touch devices */
+      }
+    }
+    
+    /* Simple gradient footer */
+    .footer-gradient {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(to top, var(--color-5), transparent);
+      z-index: -1;
+    }
+    
+    /* Home button */
+    .home-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(39, 28, 22, 0.8);
+      color: var(--color-3);
+      border: 2px solid var(--color-3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-family: 'IM Fell English', Georgia, serif;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .home-button:hover {
+      background-color: var(--color-3);
+      color: var(--color-2);
+    }
+  </style>
+</head>
+<body>
+  <div class="footer-gradient"></div>
+  
+  <a href="index.html" class="home-button">
+    <span>↩</span> Back to Lighthouse
+  </a>
+  
+  <div class="main-container">
+    <div class="header">
+      <h1>Auntie Lin</h1>
+      <p>Lighthouse Keeper of Self-Knowledge</p>
+    </div>
+    
+    <!-- Main Auntie Lin avatar with login overlay -->
+    <div id="login-section">
+      <div class="auntielin-container" id="auntielin-container">
+        <div class="pulse-ring"></div>
+        <!-- Image with fallback -->
+        <img src="https://raw.githubusercontent.com/uqsmitc6/The-Lighthouse/refs/heads/main/Auntie%20Lin.jpg" alt="Auntie Lin Portrait" class="auntielin-image" crossorigin="anonymous" onerror="this.style.display='none'; this.parentNode.querySelector('.auntielin-image-fallback').style.display='flex';">
+        
+        <div class="auntielin-image-fallback" style="display: none;">
+          <span class="auntielin-text">Auntie Lin</span>
+        </div>
+        
+        <div class="login-overlay" id="login-overlay">
+          <!-- Add close button for mobile -->
+          <div class="close-overlay" id="close-overlay">×</div>
+          
+          <div class="login-form">
+            <h3 class="form-title">Enter Student ID</h3>
+            <input type="text" id="studentIdInput" class="form-input" placeholder="e.g., s1234567" autocomplete="off">
+            <button class="btn" id="verifyBtn">Begin Your Journey</button>
+            
+            <p class="id-hint">Please enter your student ID to start your guided reflection</p>
+            <p id="error-msg"></p>
+            
+            <div id="loading" style="display: none;">
+              <div class="loading-spinner"></div>
+              <span>Verifying...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dedicated login button for mobile -->
+      <button class="mobile-login-button" id="mobile-login-button">
+        Speak with Auntie Lin
+      </button>
+    </div>
+    
+    <!-- Verification Confirmation Section -->
+    <div id="verification-container" style="display: none;" class="verification-container">
+      <p id="success-msg"></p>
+      
+      <div class="button-group">
+        <button class="btn" id="confirmBtn">Yes, that's me</button>
+        <button class="btn btn-danger" id="cancelBtn">No, that's not me</button>
+      </div>
+    </div>
+    
+    <!-- Chat Interface -->
+    <div id="chat-interface" style="display: none;" class="chat-interface">
+      <div class="student-info">
+        <span class="student-name" id="student-name-display"></span>
+        <span class="student-id" id="student-id-display"></span>
+      </div>
+      
+      <div id="chat-container"></div>
+    </div>
+    
+    <div class="disclaimer">
+      <p>Auntie Lin will guide you through a structured reflection to help you discover your strengths, values, and aspirations. Your conversation is confidential and will provide insights to help articulate your unique value.</p>
+    </div>
+  </div>
+  
+  <script>
+    // Get DOM elements
+    const auntieLin = document.getElementById('auntielin-container');
+    const loginOverlay = document.getElementById('login-overlay');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const loginSection = document.getElementById('login-section');
+    const verificationContainer = document.getElementById('verification-container');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
+    const loadingMsg = document.getElementById('loading');
+    const chatContainer = document.getElementById('chat-container');
+    const chatInterface = document.getElementById('chat-interface');
+    const studentIdInput = document.getElementById('studentIdInput');
+    const mobileLoginButton = document.getElementById('mobile-login-button');
+    const closeOverlay = document.getElementById('close-overlay');
+    
+    // Function to detect touch capability
+    function isTouchDevice() {
+      return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+    }
+    
+    // Function to show the login form
+    function showLoginForm() {
+      document.body.classList.add('mobile-form-visible');
+      auntieLin.classList.add('mobile-form-visible');
+      
+      // Focus the input field
+      setTimeout(() => {
+        studentIdInput.focus();
+      }, 300);
+    }
+    
+    // Function to hide the login form
+    function hideLoginForm() {
+      document.body.classList.remove('mobile-form-visible');
+      auntieLin.classList.remove('mobile-form-visible');
+    }
+    
+    // Set up appropriate event listeners
+    if (isTouchDevice()) {
+      // Mobile login button shows the form
+      mobileLoginButton.addEventListener('click', showLoginForm);
+      
+      // Close button hides the form
+      closeOverlay.addEventListener('click', function(e) {
+        e.stopPropagation();
+        hideLoginForm();
+      });
+      
+      // Prevent form clicks from bubbling to container
+      loginOverlay.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    } else {
+      // Desktop/non-touch behavior - clicking the avatar still works
+      auntieLin.addEventListener('click', function() {
+        showLoginForm();
+      });
+    }
+    
+    // Store verified student data
+    let verifiedStudent = null;
+    
+    // Add event listener for the verify button
+    verifyBtn.addEventListener('click', verifyStudentId);
+    
+    // Also verify when pressing Enter in the input field
+    studentIdInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        verifyStudentId();
+      }
+    });
+    
+    // Verification function
+    async function verifyStudentId() {
+      let studentId = studentIdInput.value.trim();
+      errorMsg.textContent = ""; // clear previous errors
+      
+      if (!studentId) {
+        errorMsg.textContent = "Please enter a student ID";
+        return;
+      }
+      
+      // Basic format validation for students and secret support for staff
+      const studentIdRegex = /^s\d{7}$/i;
+      const staffIdRegex = /^uq[a-z0-9]{6}$/i;
+      
+      // Allow both student and staff IDs to pass, but only show error for student format
+      if (!studentIdRegex.test(studentId) && !staffIdRegex.test(studentId)) {
+        errorMsg.textContent = "Please enter a valid student ID in the format sXXXXXXX";
+        return;
+      }
+      
+      // Normalize the case for student and staff IDs (even though we fixed it on the server)
+      if (studentId.toLowerCase().startsWith('s')) {
+        studentId = studentId.toLowerCase();
+      } else if (studentId.toLowerCase().startsWith('uq')) {
+        studentId = studentId.toLowerCase();
+      }
+      
+      // Show loading message
+      loadingMsg.style.display = "flex";
+      
+      try {
+        // Call the Google Apps Script to verify the ID
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbx_UL2AR9-g3suwKRC5w8xf7z2QKntmE5C6DarRLfmc3gIITCZ3bV7yoWPB7-yqWbUG/exec';
+        console.log("Verifying student ID:", studentId);
+        
+        const response = await fetch(`${apiUrl}?id=${encodeURIComponent(studentId)}`);
+        console.log("Response status:", response.status);
+        
+        // Hide loading message
+        loadingMsg.style.display = "none";
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        // Parse the response
+        const result = await response.json();
+        console.log("Verification result:", result);
+        
+        // Check if the ID was found
+        if (result.valid) {
+          // Store the verified student data
+          verifiedStudent = result;
+          
+          // Hide login form
+          hideLoginForm();
+          
+          // Show the confirmation section
+          loginSection.style.display = "none";
+          verificationContainer.style.display = "block";
+          successMsg.textContent = `Welcome, ${result.name}! Ready to begin your journey?`;
+        } else {
+          // ID not found
+          errorMsg.textContent = "Student ID not found. Please check your ID or contact your instructor.";
+        }
+      } catch (err) {
+        // Hide loading message
+        loadingMsg.style.display = "none";
+        console.error("Verification error:", err);
+        errorMsg.textContent = "Error verifying ID. Please try again later.";
+      }
+    }
+    
+    // Add event listener for the confirm button
+    confirmBtn.addEventListener('click', () => {
+      if (verifiedStudent) {
+        // Hide the verification section
+        verificationContainer.style.display = "none";
+        
+        // Update student info display in the header bar
+        document.getElementById('student-name-display').textContent = verifiedStudent.name;
+        document.getElementById('student-id-display').textContent = verifiedStudent.id;
+        
+        // Show the chat interface
+        chatInterface.style.display = "block";
+        
+        // Launch the chatbot with the verified student data
+        launchChatbot(verifiedStudent);
+      }
+    });
+    
+    // Add event listener for the cancel button
+    cancelBtn.addEventListener('click', () => {
+      // Go back to the login section
+      verificationContainer.style.display = "none";
+      loginSection.style.display = "block";
+      // Clear the input field
+      studentIdInput.value = "";
+      // Reset mobile form visibility
+      hideLoginForm();
+    });
+    
+    // Function to launch the chatbot
+    function launchChatbot(studentData) {
+      // Prepare the chatbot URL
+      let chatbotUrl = "https://interfaces.zapier.com/embed/chatbot/cm5uj6urf004gw80cu3d45ifb";
+      
+      // Use the parameters that work
+      chatbotUrl += `?studentId=${encodeURIComponent(studentData.id)}`;
+      chatbotUrl += `&studentName=${encodeURIComponent(studentData.name)}`;
+      
+      console.log("Loading chatbot with URL:", chatbotUrl);
+      
+      // Create an iframe to embed the chatbot
+      const iframe = document.createElement('iframe');
+      iframe.src = chatbotUrl;
+      iframe.width = "100%";
+      iframe.height = "100%";
+      iframe.style.border = "none";
+      iframe.setAttribute('allow', 'clipboard-write *');
+      
+      // Add the iframe to the chatbot container
+      chatContainer.innerHTML = "";
+      chatContainer.appendChild(iframe);
+    }
+  </script>
+</body>
+</html>
