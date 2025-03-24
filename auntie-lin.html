@@ -833,9 +833,9 @@
         return;
       }
       
-      // Basic format validation for students and secret support for staff
-      const studentIdRegex = /^s\d{7}$/i;
-      const staffIdRegex = /^uq[a-z0-9]{6}$/i;
+// Update this in your HTML file
+const studentIdRegex = /^s\d{7}$/i;
+const staffIdRegex = /^(uq|xx)[a-z0-9]{6}$/i;  // Updated to accept both uq and xx prefixes
       
       // Allow both student and staff IDs to pass, but only show error for student format
       if (!studentIdRegex.test(studentId) && !staffIdRegex.test(studentId)) {
@@ -855,7 +855,7 @@
       
       try {
         // Call the Google Apps Script to verify the ID
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbx_UL2AR9-g3suwKRC5w8xf7z2QKntmE5C6DarRLfmc3gIITCZ3bV7yoWPB7-yqWbUG/exec';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbwXKN9DwgTUiM5n2lkES11J4Ac3XGGZv52wEZLTvshKoCFMXT79EHF6U8nry3iPWn5a/exec';
         console.log("Verifying student ID:", studentId);
         
         const response = await fetch(`${apiUrl}?id=${encodeURIComponent(studentId)}`);
